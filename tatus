@@ -1,0 +1,11 @@
+* [33m8374279[m[33m ([m[1;32mmain[m[33m)[m css comment
+[31m|[m * [33md302f44[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Update deployment directory in deploy.yml
+[31m|[m * [33mf6b44f6[m Refactor deployment workflow and update paths
+[31m|[m * [33mfd3f941[m Enhance deployment workflow with secret checks
+[31m|[m * [33m1b83a99[m Remove SSH key from deploy.yml
+[31m|[m[31m/[m  
+* [33meeea540[m Update homepage design
+* [33m495d322[m updated
+* [33m3fdd8c5[m Simplify deploy script by removing optimizations
+* [33m014a327[m Remove EC2 port from deploy.yml
+* [33mb2277c0[m Add GitHub Actions workflow for AWS EC2 deployment
