@@ -15,13 +15,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check required secrets
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USER: ${{ secrets.EC2_USER }}
+          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+        run: |
+          for v in EC2_HOST EC2_USER EC2_SSH_KEY; do
+            if [ -z "${!v}" ]; then
+              echo "::error::Secret $v khali hai ya mila nahi (Repository secrets mein check karo)"
+              exit 1
+            fi
+          done
+
       - name: Deploy to app-vm
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
-         
-          port: ${{ secrets.EC2_PORT }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: ${{ secrets.EC2_PORT || 22 }}
+          script_stop: true
           script: |
             set -e
             cd /var/www/app
@@ -32,8 +46,4 @@ jobs:
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
-            curl -fsS https://faisaldbapp.duckdns.org/health
-
-
-
-            
+            curl -fsS https://faisaldbapp.duckdns.org/up
